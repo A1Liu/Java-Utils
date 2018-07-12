@@ -1,0 +1,33 @@
+login:0
+	user:0;user login in. Takes arguments <username/email> <password>. returns user info.
+	sessionID:0;SessionID login. takes arguments <long>. returns user info.
+	new:3;new user. Takes arguments <username> <email> <name> <password>. returns user info.
+	root:100;way to access server commands. Appends a null to beginning of input to access commands
+Null
+	refresh:10;refresh user information for this user
+	search:20;search for a user
+	user:21;ask for refresh of other user. Sets 'currently viewing'. takes arguments <username>
+		config;configure things about the account
+			username:11;change username. Takes arguments <username>
+			email:12;change email. takes arguments <email>
+			name:13; change name. Takes arguments <name>
+			password:14;change password. takes arguments <oldPassword> <NewPassword>
+		rate:22;rate another user. takes arguments <username> <integer>. If currently viewing a user, then <username> field is optional
+		friend:23;friend another user. takes arguments <username>. If currently viewing a user, then <username> field is optional
+	logout:1;logout of account.
+	Null
+		user:198;prepend to use user commands
+		logout:199;logout of user-spoofed account if logged in, and admin account.
+		server;admin commands affecting server-wide stuff
+			get;get information
+				active:111;get current active users
+				sessionid:112;
+				stats:113;get statistics on server use
+			add:120;add a user. Takes arguments <username/email> <password>. returns user info.
+			delete:130;delete a user. Takes arguments <username/email>. returns user info.
+		network;stuff to do with ratings graph.
+			crawl:150;create a crawler.
+		start:101;start server
+		stop:102;stop server
+		new:103;new 
+quit:2
