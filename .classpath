@@ -5,9 +5,9 @@
 			<accessrule kind="accessible" pattern="javafx/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="utils"/>
 	<classpathentry kind="src" path="input"/>
 	<classpathentry kind="src" path="lib"/>
+	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/client-combined-3.11.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/client-combined-3.11.0.jar"/>
 	<classpathentry kind="lib" path="lib/opencsv-4.2.jar"/>
