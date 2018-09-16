@@ -32,41 +32,41 @@ public final class Debug {
 	
 	/*----Print Utilities---*/
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static <T> void pArr(T[] array) {
 		p(arrayToList(array).toString());
 	}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(int[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(char[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(short[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(long[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(byte[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(double[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(float[] array) {p(arrayToList(array).toString());}
 	
-	/** Prints an array object using {@link DebugMethods#print} 
+	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static void pArr(boolean[] array) {p(arrayToList(array).toString());}
 

@@ -1,6 +1,9 @@
 package io;
 
-public class Formatting {
+public class Formatting {//TODO Write a thing that formats inputs into data arrays using a formatting string
+	//i.e. format string is %d;%d, then formatter returns 1 and 2 given input string "1;2"
+	// basically a generalized parser of text
+	//get double, get string, etc.
 	
 	private Formatting() {}
 	

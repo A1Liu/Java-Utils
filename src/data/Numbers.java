@@ -16,11 +16,11 @@ public class Numbers {
 	 */
 	public static int randomWithRange(int min, int max)
 	{
-	   return (int) (Math.random() * ((max-min) + 1)) + min;
+		return (int) (Math.random() * ((max-min) + 1)) + min;
 	}
 	
 	/**
-	 * Generates primes
+	 * Generates primes. Create a PrimeGenerator Object to get primes. Object iterates through a static series. First 25 primes are pre-loaded
 	 * 
 	 * @author Albert Liu
 	 *
@@ -118,7 +118,7 @@ public class Numbers {
 		 * Fills the array of primes from the specified initial index
 		 * @param endSize the new size of the array
 		 */
-		public static synchronized void fillPrimes(int endSize) {
+		private static synchronized void fillPrimes(int endSize) {
 			int largestPrime = primes[primes.length - 1];
 			if (largestPrime == LARGEST_PRIME_POSSIBLE)// Stop if the array is already as big as possible
 				return;

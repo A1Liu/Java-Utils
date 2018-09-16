@@ -9,27 +9,20 @@ import java.io.InputStreamReader;
  * @author aliu
  *
  */
-public abstract class SimpleTester implements Runnable {
+public abstract class LoopTester extends SimpleTester {
 	
-	private final BufferedReader reader;
-	private final boolean input;
-	
-	public SimpleTester() {
+	public LoopTester() {
 		this(true);
 	}
 	
-	public SimpleTester(boolean input) {
-		this.input = input;
-		reader = new BufferedReader(new InputStreamReader(System.in));
+	public LoopTester(boolean input) {
+		super(input);
 	}
 
 	@Override
 	public void run() {
-		try {
-			Object output = execute(this.input ? reader.readLine() : null);
-			System.out.println(output == null ? "<null>" : output.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
+		while(true) {
+			super.run();
 		}
 	}
 	
@@ -40,4 +33,6 @@ public abstract class SimpleTester implements Runnable {
 	 */
 	public abstract Object execute(String input);
 	
+	
+
 }

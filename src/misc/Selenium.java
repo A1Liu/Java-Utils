@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 
 public class Selenium {
 
-final static String NEXT_SIBLING_XPATH = "./following-sibling::";
+	private final static String NEXT_SIBLING_XPATH = "./following-sibling::";
 	
 	/**
 	 * Returns the following sibling of the specified element, or null if it doesn't exist
