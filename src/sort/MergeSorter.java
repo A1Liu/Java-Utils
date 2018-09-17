@@ -37,11 +37,14 @@ public class MergeSorter extends Sorter {
 		 */
 		
 		if (endIndex - startIndex < 16) {
-			return accessor.insertionSort(startIndex, endIndex);
+			return this.insertionSort(accessor, startIndex, endIndex);
 		}
 		
 		sort0(accessor, startIndex, endIndex/2);
 		sort0(accessor, endIndex/2, endIndex);
+		
+		
+		
 		return accessor;
 	}
 
