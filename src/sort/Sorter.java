@@ -1,7 +1,7 @@
 package sort;
 
 import java.util.List;
-import static debug.Debug.*;
+//import static debug.Debug.*;
 
 /**
  * 
@@ -12,6 +12,8 @@ import static debug.Debug.*;
  */
 public abstract class Sorter {
 		
+	Accessor<?> accessor;
+	
 	/**
 	 * Sorts a list of values
 	 * @param list list of values
@@ -30,7 +32,8 @@ public abstract class Sorter {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Comparable<T>> List<T> sort(List<T> list, int startIndex, int endIndex) {
-		return (List<T>) sort0(new ListAccessor<T>(list), startIndex, endIndex).getData();
+		accessor = new ListAccessor<T>(list);
+		return (List<T>) sort0(accessor, startIndex, endIndex).getData();
 	}
 	
 	/**
@@ -51,7 +54,8 @@ public abstract class Sorter {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Comparable<T>> T[] sort(T[] array, int startIndex, int endIndex) {
-		return (T[]) sort0(new ArrayAccessor<T>(array), startIndex, endIndex).getData();
+		accessor = new ArrayAccessor<T>(array);
+		return (T[]) sort0(accessor, startIndex, endIndex).getData();
 	}
 	
 	/**
@@ -72,7 +76,8 @@ public abstract class Sorter {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Comparable<T>> List<T> insertionSort(List<T> list, int startIndex, int endIndex) {
-		return (List<T>) new ListAccessor<T>(list).insertionSort(startIndex, endIndex).getData();
+		accessor = new ListAccessor<T>(list);
+		return (List<T>) accessor.insertionSort(startIndex, endIndex).getData();
 	}
 	
 	 /** Insertion sort for arrays
@@ -83,7 +88,12 @@ public abstract class Sorter {
 	 */
 	@SuppressWarnings("unchecked")
 	public <T extends Comparable<T>> T[] insertionSort(T[] array, int startIndex, int endIndex) {
-		return (T[]) new ArrayAccessor<T>(array).insertionSort(startIndex, endIndex).getData();
+		accessor = new ArrayAccessor<T>(array);
+		return (T[]) accessor.insertionSort(startIndex, endIndex).getData();
+	}
+	
+	public String sortSummary() {
+		return 	String.format("Swaps: %d\n Comparisons: %d\n Reads: %d\n Writes: %d\n", accessor.getSwaps(), accessor.getComps(), accessor.getReads(),accessor.getWrites());
 	}
 	
 	/**
@@ -95,7 +105,7 @@ public abstract class Sorter {
 	 *
 	 * @param <E>
 	 */
-	protected abstract static class Accessor<E extends Comparable<E>> {// TODO Make accessor extends List
+	protected abstract static class Accessor<E extends Comparable<E>> {// TODO Make accessor extend List
 		
 		protected int swaps;
 		protected int comparisons;
@@ -109,69 +119,105 @@ public abstract class Sorter {
 			writes = 0;
 		}
 		
+		/**
+		 * Getter for the data stored in the accessor
+		 * @return the data
+		 */
 		protected abstract Object getData();
 		
+		/**
+		 * Getter for element at an index
+		 * @param index index of the element
+		 * @return the element at the index
+		 */
 		public abstract E get(int index);
 		
+		/**
+		 * Setter for a location in the data
+		 * @param element the element to put at the location
+		 * @param index the index to put the element
+		 * @return the element that was previously at that location
+		 */
 		public abstract E set(E element, int index);
 		
-		public abstract void swap(int index1, int index2);
+		/**
+		 * Swaps two elements in the data
+		 * @param index1 index of first element to be swapped
+		 * @param index2 index of second element to be swapped
+		 */
+		public final void swap(int index1, int index2) {
+			set(set(get(index2), index1),index2);
+			swaps++;
+		}
 		
-		public abstract int compare(int index1, int index2);
+		/**
+		 * Compares data in 2 indices using get(index1).compareTo(get(index2))
+		 * @param index1 index of first element
+		 * @param index2 index of element to compare the first to
+		 * @return the result of the comparison
+		 */
+		public final int compare(int index1, int index2) {
+			int i = get(index1).compareTo(get(index2));
+			comparisons++;
+			return i;
+		}
 		
-		protected Accessor<E> insertionSort(int startIndex, int endIndex) {
+//		protected Accessor<E> insertionSort(int startIndex, int endIndex) {
+//			for (int current=startIndex+1; current<endIndex; ++current) {
+//	            int currentCheck = current-1;
+//	            while (currentCheck>=startIndex && compare(currentCheck,currentCheck+1) > 0) {
+//	            	swap(currentCheck+1,currentCheck--);
+//	            }
+//	        }
+//			return this;
+//		}
+		
+		/**
+		 * Insertion sort implementation
+		 * @param startIndex Start index for sort. Sorts all elements with indices greater than or equal to startIndex
+		 * @param endIndex End index of the sort. Sorts all elements with indices less than endIndex
+		 * @return the sorted data
+		 */
+		protected final Accessor<E> insertionSort(int startIndex, int endIndex) {
 			for (int current=startIndex+1; current<endIndex; ++current) {
 	            int currentCheck = current-1;
-	            while (currentCheck>=startIndex && compare(currentCheck,currentCheck+1) > 0) {
-	            	swap(currentCheck+1,currentCheck--);
+	            E element = get(current);
+	            while (currentCheck>=startIndex) {
+	            	comparisons++;
+	            	if (get(currentCheck).compareTo(element) > 0) {
+	            		set(get(currentCheck),currentCheck+1);
+		            	currentCheck--;
+	            	} else break;
 	            }
+	            set(element,currentCheck+1);
 	        }
 			return this;
 		}
-		
-//		static void sort(Integer arr[])
-//	    {
-//	        int n = arr.length;
-//	        for (int i=1; i<n; ++i)
-//	        {
-//	            int key = arr[i];
-//	            int j = i-1;
-	// 
-//	            /* Move elements of arr[0..i-1], that are
-//	               greater than key, to one position ahead
-//	               of their current position */
-//	            while (j>=0 && arr[j].compareTo(key) > 0)
-//	            {
-//	                arr[j+1] = arr[j];
-//	                j = j-1;
-//	            }
-//	            arr[j+1] = key;
-//	        }
-//	    }
 		
 		/**
 		 * Getter for number of swaps
 		 * @return number of swaps
 		 */
-		public int getSwaps() {return swaps;}
+		public final int getSwaps() {return swaps;}
 		
 		/**
 		 * getter for number of comparisons
 		 * @return number of comparisons
 		 */
-		public int getComps() {return comparisons;}
+		public final int getComps() {return comparisons;}
 		
 		/**
 		 * Getter for number of reads
 		 * @return number of reads
 		 */
-		public int getReads() {return reads;}
+		public final int getReads() {return reads;}
 		
 		/**
 		 * Getter for number of writes
 		 * @return number of writes
 		 */
-		public int getWrites() {return writes;}
+		public final int getWrites() {return writes;}
+		
 	}
 	
 	protected final static class ArrayAccessor<T extends Comparable<T>> extends Accessor<T> {
@@ -195,22 +241,6 @@ public abstract class Sorter {
 			T temp = array[index];
 			array[index] = element;
 			return temp;
-		}
-
-		@Override
-		public void swap(int index1, int index2) {
-			T temp = array[index1];
-			array[index1] = array[index2];
-			array[index2] = temp;
-			swaps++;
-			pArr(array);
-		}
-
-		@Override
-		public int compare(int index1, int index2) {
-			int i = array[index1].compareTo(array[index2]);
-			comparisons++;
-			return i;
 		}
 
 		@Override
@@ -241,95 +271,8 @@ public abstract class Sorter {
 		}
 
 		@Override
-		public void swap(int index1, int index2) {
-			list.set(index2, list.set(index1, list.get(index2)));
-			swaps++;
-		}
-
-		@Override
-		public int compare(int index1, int index2) {
-			int i = list.get(index1).compareTo(list.get(index2));
-			comparisons++;
-			return i;
-		}
-
-		@Override
 		protected Object getData() {
 			return list;
 		}
 	}
-//	
-//	protected final <T> T set(List<T> list,T element, int index) {
-//		reads++;
-//		writes++;
-//		return list.set(index, element);
-//	}
-//	
-//	protected final <T> T set(T[] array, T element, int index) {
-//		reads++;
-//		writes++;
-//		T temp = array[index];
-//		array[index] = element;
-//		return temp;
-//	}
-//	
-//	protected final <T> T get(T[] array, int index) {
-//		reads++;
-//		return array[index];
-//	}
-//	
-//	protected final <T> T get(List<T> list, int index) {
-//		reads++;
-//		return list.get(index);
-//	}
-//	
-//	/**
-//	 * Swaps 2 elements of a list
-//	 * @param list list of elements
-//	 * @param index1 index of first element to swap
-//	 * @param index2 index of second element to swap
-//	 */
-//	protected final <T> void swap(List<T> list, int index1, int index2) {
-//		list.set(index2, list.set(index1, list.get(index2)));
-//		swaps++;
-//	}
-//	
-//	/**
-//	 * Swaps 2 elements of an array
-//	 * @param array array of elements
-//	 * @param index1 index of first element to swap
-//	 * @param index2 index of second element to swap
-//	 */
-//	protected final <T> void swap(T[] array, int index1, int index2) {
-//		T temp = array[index1];
-//		array[index1] = array[index2];
-//		array[index2] = temp;
-//		swaps++;
-//	}
-//	
-//	/**
-//	 * Compares 2 elements in a list using the compareTo method (<code>element1.compareTo(element2)</code>)
-//	 * @param list list of elements
-//	 * @param index1 index of first element to swap
-//	 * @param index2 index of second element to swap
-//	 * @return the value of <code>element1.compareTo(element2)</code>
-//	 */
-//	protected final <T extends Comparable<T>> int compare(List<T> list, int index1, int index2) {
-//		int i = list.get(index1).compareTo(list.get(index2));
-//		comparisons++;
-//		return i;
-//	}
-//	
-//	/**
-//	 * Compares 2 elements in an array using the compareTo method (<code>element1.compareTo(element2)</code>)
-//	 * @param array array of elements
-//	 * @param index1 index of first element to swap
-//	 * @param index2 index of second element to swap
-//	 * @return the value of <code>element1.compareTo(element2)</code>
-//	 */
-//	protected final <T extends Comparable<T>> int compare(T[] array, int index1, int index2) {
-//		int i = array[index1].compareTo(array[index2]);
-//		comparisons++;
-//		return i;
-//	}
 }
