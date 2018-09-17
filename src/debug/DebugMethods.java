@@ -35,40 +35,40 @@ public final class DebugMethods {
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
 	public static <T> void printArray(T[] array) {
-		print(arrayToList(array).toString());
+		simplePrint(arrayToList(array).toString());
 	}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(int[] array) {print(arrayToList(array).toString());}
+	public static void printArray(int[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(char[] array) {print(arrayToList(array).toString());}
+	public static void printArray(char[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(short[] array) {print(arrayToList(array).toString());}
+	public static void printArray(short[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(long[] array) {print(arrayToList(array).toString());}
+	public static void printArray(long[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(byte[] array) {print(arrayToList(array).toString());}
+	public static void printArray(byte[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(double[] array) {print(arrayToList(array).toString());}
+	public static void printArray(double[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(float[] array) {print(arrayToList(array).toString());}
+	public static void printArray(float[] array) {simplePrint(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link DebugMethods#print} 
 	 * @param array array to print */
-	public static void printArray(boolean[] array) {print(arrayToList(array).toString());}
+	public static void printArray(boolean[] array) {simplePrint(arrayToList(array).toString());}
 
 	/**
 	 * System.out.println

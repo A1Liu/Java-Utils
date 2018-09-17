@@ -1,6 +1,7 @@
 package sort;
 
 import java.util.List;
+import static debug.Debug.*;
 
 /**
  * 
@@ -94,7 +95,7 @@ public abstract class Sorter {
 	 *
 	 * @param <E>
 	 */
-	protected abstract static class Accessor<E extends Comparable<E>> {
+	protected abstract static class Accessor<E extends Comparable<E>> {// TODO Make accessor extends List
 		
 		protected int swaps;
 		protected int comparisons;
@@ -118,7 +119,35 @@ public abstract class Sorter {
 		
 		public abstract int compare(int index1, int index2);
 		
-		protected abstract Accessor<E> insertionSort(int startIndex, int endIndex);
+		protected Accessor<E> insertionSort(int startIndex, int endIndex) {
+			for (int current=startIndex+1; current<endIndex; ++current) {
+	            int currentCheck = current-1;
+	            while (currentCheck>=startIndex && compare(currentCheck,currentCheck+1) > 0) {
+	            	swap(currentCheck+1,currentCheck--);
+	            }
+	        }
+			return this;
+		}
+		
+//		static void sort(Integer arr[])
+//	    {
+//	        int n = arr.length;
+//	        for (int i=1; i<n; ++i)
+//	        {
+//	            int key = arr[i];
+//	            int j = i-1;
+	// 
+//	            /* Move elements of arr[0..i-1], that are
+//	               greater than key, to one position ahead
+//	               of their current position */
+//	            while (j>=0 && arr[j].compareTo(key) > 0)
+//	            {
+//	                arr[j+1] = arr[j];
+//	                j = j-1;
+//	            }
+//	            arr[j+1] = key;
+//	        }
+//	    }
 		
 		/**
 		 * Getter for number of swaps
@@ -174,6 +203,7 @@ public abstract class Sorter {
 			array[index1] = array[index2];
 			array[index2] = temp;
 			swaps++;
+			pArr(array);
 		}
 
 		@Override
@@ -186,17 +216,6 @@ public abstract class Sorter {
 		@Override
 		protected Object getData() {
 			return array;
-		}
-
-		@Override
-		protected Accessor<T> insertionSort(int startIndex, int endIndex) {
-			for (int current=startIndex+1; current<endIndex; ++current) {
-	            int currentCheck = current-1;
-	            while (currentCheck>=startIndex && compare(currentCheck,current) > 0) {
-	            	swap(currentCheck+1,currentCheck--);
-	            }
-	        }
-			return this;
 		}
 	}
 	
@@ -237,17 +256,6 @@ public abstract class Sorter {
 		@Override
 		protected Object getData() {
 			return list;
-		}
-
-		@Override
-		protected Accessor<T> insertionSort(int startIndex, int endIndex) {
-			for (int current=startIndex+1; current<endIndex; ++current) {
-	            int currentCheck = current-1;
-	            while (currentCheck>=startIndex && compare(currentCheck,current) > 0) {
-	            	swap(currentCheck+1,currentCheck--);
-	            }
-	        }
-			return this;
 		}
 	}
 //	

@@ -14,7 +14,6 @@ public class SpaghetSorter extends Sorter {// TODO Gimme da Spaghet
 
 	@Override
 	protected <T extends Comparable<T>> Accessor<T> sort0(Accessor<T> accessor, int startIndex, int endIndex) {
-		// TODO Auto-generated method stub
 //		Hashtable<Integer,List<T>> table = new Hashtable<Integer, List<T>>();
 //		Iterator<T> iter = list.iterator();
 //		T first;

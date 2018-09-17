@@ -35,40 +35,40 @@ public final class Debug {
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
 	public static <T> void pArr(T[] array) {
-		p(arrayToList(array).toString());
+		sp(arrayToList(array).toString());
 	}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(int[] array) {p(arrayToList(array).toString());}
+	public static void pArr(int[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(char[] array) {p(arrayToList(array).toString());}
+	public static void pArr(char[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(short[] array) {p(arrayToList(array).toString());}
+	public static void pArr(short[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(long[] array) {p(arrayToList(array).toString());}
+	public static void pArr(long[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(byte[] array) {p(arrayToList(array).toString());}
+	public static void pArr(byte[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(double[] array) {p(arrayToList(array).toString());}
+	public static void pArr(double[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(float[] array) {p(arrayToList(array).toString());}
+	public static void pArr(float[] array) {sp(arrayToList(array).toString());}
 	
 	/** Prints an array object using {@link Debug#print} 
 	 * @param array array to print */
-	public static void pArr(boolean[] array) {p(arrayToList(array).toString());}
+	public static void pArr(boolean[] array) {sp(arrayToList(array).toString());}
 
 	/**
 	 * printStream.println
