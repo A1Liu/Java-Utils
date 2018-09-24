@@ -99,6 +99,9 @@ public abstract class Sorter {
 	 * @return the sorted data
 	 */
 	protected final <E extends Comparable<E>> Accessor<E> insertionSort(Accessor<E> accessor,int startIndex, int endIndex) {
+		if (startIndex > endIndex-2) {
+			return accessor;
+		}
 		for (int current=startIndex+1; current<endIndex; ++current) {
             int currentCheck = current-1;
             E element = accessor.get(current);
@@ -114,7 +117,7 @@ public abstract class Sorter {
 	}
 	
 	public String sortSummary() {
-		return 	String.format("Swaps: %d\n Comparisons: %d\n Reads: %d\n Writes: %d\n", accessor.getSwaps(), accessor.getComps(), accessor.getReads(),accessor.getWrites());
+		return 	String.format("Swaps: %d\nComparisons:%d\nReads: %d\nWrites: %d", accessor.getSwaps(), accessor.getComps(), accessor.getReads(),accessor.getWrites());
 	}
 	
 	public Accessor<?> getAccessor() {

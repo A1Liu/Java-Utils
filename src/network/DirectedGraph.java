@@ -5,7 +5,7 @@ package network;
  * @author Alyer
  *
  */
-class DirectedGraph extends Graph<Vertex<Integer>> {
+public class DirectedGraph extends Graph<Vertex<Integer>> {
 	
 	
 	DirectedGraph() {
